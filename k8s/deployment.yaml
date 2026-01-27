@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: moodtracker-backend
+  labels:
+    app: moodtracker-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: moodtracker-backend
+  template:
+    metadata:
+      labels:
+        app: moodtracker-backend
+    spec:
+      imagePullSecrets:
+      - name: acr-secret
+      containers:
+      - name: moodtracker-back
+        image: moodtracker-g7d7ayewgufsaghu.azurecr.io/moodtracker-back:v1.0
+        ports:
+        - containerPort: 3000
+        envFrom:
+        - secretRef:
+            name: moodtracker-backend-secrets
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 15
+          periodSeconds: 20
