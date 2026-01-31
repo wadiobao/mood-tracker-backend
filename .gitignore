@@ -25,4 +25,5 @@ yarn-error.log*
 
 # Kubernetes manifests
 k8s/*.yaml
-!k8s/*.example.yaml
+# Track examples in the new folder
+!k8s-example/*.yaml

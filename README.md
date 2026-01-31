@@ -55,11 +55,11 @@ npm start
 ```
 
 ## ⚓ Deployment (Kubernetes)
-The project includes Kubernetes manifests in the `k8s/` directory. For production, refer to the `.example.yaml` files:
-- `deployment.yaml`: API Deployment configuration.
-- `service.yaml`: ClusterIP service.
-- `ingress-https.yaml`: Nginx Ingress with SSL/TLS (Let's Encrypt).
-- `cluster-issuer.yaml`: Cert-manager configuration for SSL certificates.
+The project includes actual Kubernetes manifests in the `k8s/` directory (ignored by Git) and templates in the `k8s-example/` directory:
+- `k8s-example/deployment.example.yaml`: API Deployment configuration template.
+- `k8s-example/service.example.yaml`: ClusterIP service template.
+- `k8s-example/ingress-https.example.yaml`: Nginx Ingress template with SSL/TLS.
+- `k8s-example/cluster-issuer.example.yaml`: Cert-manager template.
 
 ---
 Part of the **MindX Engineer Onboarding** program.
