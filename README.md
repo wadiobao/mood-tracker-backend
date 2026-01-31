@@ -13,6 +13,7 @@ This is the professional Node.js backend for the MoodTracker application. It pro
 - **Runtime:** Node.js
 - **Framework:** Express + TypeScript
 - **Security:** jsonwebtoken, bcryptjs
+- **Database:** MongoDB (via Mongoose)
 - **Dev Tools:** nodemon, ts-node
 - **Infrastructure:** Docker, Kubernetes (AKS)
 
@@ -41,7 +42,7 @@ Create a `.env` file from the example:
 ```bash
 cp .env.example .env
 ```
-Ensure you set a strong `JWT_SECRET`.
+Ensure you set a strong `JWT_SECRET` and a valid `MONGODB_URI`.
 
 ### Development
 ```bash

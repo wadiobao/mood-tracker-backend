@@ -1,10 +1,13 @@
 import * as dotenv from 'dotenv';
 import app from './app';
+import { connectDB } from './config/db';
 
 dotenv.config();
 
 const port = process.env.PORT || 3000;
 
-app.listen(port, () => {
-    console.log(`MoodTracker API listening at http://localhost:${port}`);
+connectDB().then(() => {
+    app.listen(port, () => {
+        console.log(`🚀 MoodTracker API listening at http://localhost:${port}`);
+    });
 });

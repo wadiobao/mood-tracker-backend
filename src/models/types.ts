@@ -1,20 +1,20 @@
 export interface User {
-    id: number;
+    id?: string;
     username: string;
-    passwordHash: string;
+    password: string; // Changed from passwordHash
 }
 
 export interface MoodEntry {
-    id: number;
-    userId: number;
+    id?: string;
+    userId: string; // Changed from number
     mood: string;
     reason?: string;
-    timestamp: string;
+    timestamp?: Date; // Changed to Date
 }
 
 export interface AuthRequest extends Request {
     user?: {
-        id: number;
+        id: string; // Changed from number
         username: string;
     };
 }

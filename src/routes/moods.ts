@@ -1,28 +1,33 @@
 import { Router, Response } from 'express';
-import { moods } from '../data/store';
-import { MoodEntry } from '../models/types';
+import { MoodModel } from '../models/Mood';
 import { authenticateToken } from '../middleware/auth';
 
 const router = Router();
 
-router.get('/', authenticateToken, (req: any, res: Response) => {
-    const userMoods = moods.filter(m => m.userId === req.user.id);
-    res.json(userMoods);
+router.get('/', authenticateToken, async (req: any, res: Response) => {
+    try {
+        const userMoods = await MoodModel.find({ userId: req.user.id }).sort({ timestamp: -1 });
+        res.json(userMoods);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
 });
 
-router.post('/', authenticateToken, (req: any, res: Response) => {
-    const { mood, reason } = req.body;
-    if (!mood) return res.status(400).json({ error: 'Mood is required' });
+router.post('/', authenticateToken, async (req: any, res: Response) => {
+    try {
+        const { mood, reason } = req.body;
+        if (!mood) return res.status(400).json({ error: 'Mood is required' });
 
-    const newEntry: MoodEntry = {
-        id: moods.length + 1,
-        userId: req.user.id,
-        mood,
-        reason,
-        timestamp: new Date().toISOString(),
-    };
-    moods.push(newEntry);
-    res.status(201).json(newEntry);
+        const newEntry = new MoodModel({
+            userId: req.user.id,
+            mood,
+            reason,
+        });
+        await newEntry.save();
+        res.status(201).json(newEntry);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
 });
 
 export default router;
