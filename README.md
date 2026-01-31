@@ -1,51 +1,65 @@
-# Mood Tracker - Backend API
+# MoodTracker Backend API
 
-This is the backend service for the Mood Tracker application, built with Node.js, Express, and TypeScript.
+This is the professional Node.js backend for the MoodTracker application. It provides a secure API for user authentication and mood logging, built with **Express**, **TypeScript**, and **Custom JWT Authentication**.
 
-## Features
-- Log daily moods with an optional reason.
-- Retrieve a history of logged moods.
-- Health check endpoint for deployment verification.
+## 🚀 Features
+- **Authentication:** Secure user registration and login with password hashing (`bcryptjs`).
+- **Authorization:** JWT-based protection for sensitive endpoints.
+- **Mood Logging:** Create and retrieve mood entries with optional reasons.
+- **Health Monitoring:** Dedicated `/health` endpoint for AKS probes.
+- **Bilingual Support:** Error messages and responses prepared for internationalization.
 
-## Tech Stack
+## 🛠 Tech Stack
 - **Runtime:** Node.js
-- **Framework:** Express
-- **Language:** TypeScript
-- **Environment:** Dotenv
-- **Containerization:** Docker
+- **Framework:** Express + TypeScript
+- **Security:** jsonwebtoken, bcryptjs
+- **Dev Tools:** nodemon, ts-node
+- **Infrastructure:** Docker, Kubernetes (AKS)
 
-## Getting Started
+## 📂 Project Structure
+The codebase follows a modular architecture for better maintainability:
+- `src/routes/`: Specialized API endpoints (Auth, Moods).
+- `src/middleware/`: JWT verification and global logic guards.
+- `src/models/`: Shared TypeScript interfaces and types.
+- `src/data/`: High-level data management (currently in-memory, ready for DB integration).
+- `src/app.ts`: Express application configuration and middleware setup.
+- `src/index.ts`: Lightweight server entry point.
+
+## 🏁 Getting Started
 
 ### Prerequisites
 - Node.js (v20+)
 - npm
 
 ### Installation
-1. Navigate to the backend directory:
-   ```bash
-   cd mood-tracker-backend
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+```bash
+npm install
+```
 
-### Running Locally
-1. Create a `.env` file from the example:
-   ```bash
-   cp .env.example .env
-   ```
-2. Start the development server (with nodemon):
-   ```bash
-   npm run dev
-   ```
+### Environment Setup
+Create a `.env` file from the example:
+```bash
+cp .env.example .env
+```
+Ensure you set a strong `JWT_SECRET`.
 
-### API Endpoints
-- `GET /health`: Health check.
-- `GET /api/moods`: List all moods.
-- `POST /api/moods`: Create a new mood entry.
-  - Body: `{ "mood": "Happy", "reason": "Got a coffee" }`
+### Development
+```bash
+npm run dev
+```
 
-## Deployment
-This service is containerized and ready for deployment to Azure or any Kubernetes cluster.
-- **Docker Build:** `docker build -t moodtracker-backend .`
+### Build & Production
+```bash
+npm run build
+npm start
+```
+
+## ⚓ Deployment (Kubernetes)
+The project includes Kubernetes manifests in the `k8s/` directory. For production, refer to the `.example.yaml` files:
+- `deployment.yaml`: API Deployment configuration.
+- `service.yaml`: ClusterIP service.
+- `ingress-https.yaml`: Nginx Ingress with SSL/TLS (Let's Encrypt).
+- `cluster-issuer.yaml`: Cert-manager configuration for SSL certificates.
+
+---
+Part of the **MindX Engineer Onboarding** program.
