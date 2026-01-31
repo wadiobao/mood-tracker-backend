@@ -18,7 +18,7 @@ spec:
       - name: acr-secret
       containers:
       - name: moodtracker-back
-        image: moodtracker-g7d7ayewgufsaghu.azurecr.io/moodtracker-back:v1.1-auth
+        image: <your-acr-name>.azurecr.io/moodtracker-back:<tag>
         ports:
         - containerPort: 3000
         envFrom:
